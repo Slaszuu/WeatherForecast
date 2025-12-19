@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace WeatherForecast;
 
 public class Program
@@ -18,7 +20,10 @@ public class Program
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
-
+        
+        builder.Services.AddDbContext<DbContext>(options =>
+            options.UseNpgsql(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

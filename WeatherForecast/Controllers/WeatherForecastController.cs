@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using WeatherForecast.DTOs;
+using WeatherForecast.RequestModels;
 
 namespace WeatherForecast.Controllers;
 
@@ -6,20 +8,23 @@ namespace WeatherForecast.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private static readonly string[] Summaries =
-    [
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    ];
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+
+    [HttpGet]
+    public SensorsDTO Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+        return new SensorsDTO();
+    }
+
+    [HttpPost]
+    public IActionResult Post([FromBody] EspRequest request)
+    {
+        Console.WriteLine(request.Time);
+        Console.WriteLine(request.Temperature);
+        Console.WriteLine(request.Pressure);
+        Console.WriteLine(request.Humidity);
+        Console.WriteLine(request.Lux);
+        
+        return NoContent();
     }
 }
