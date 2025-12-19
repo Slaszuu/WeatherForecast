@@ -1,0 +1,39 @@
+﻿services:
+  weatherforecast:
+    image: WeatherForecast
+    user: "1000:1000"
+    ports:
+      - 1390:5125
+    build:
+      context: .
+      dockerfile: WeatherForecast/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5125
+      - ConnectionStrings__DefaultConnection=Server=db;Port=4737;Database=default_database;User Id=${database_username};Password=${database_password};
+    env_file:
+      - .env
+    depends_on:
+      - database
+
+  database:
+    image: "postgres:18"
+    user: "1000:1000"
+    ports:
+      - 4737:5432
+    environment:
+      POSTGRES_USER: ${database_username}
+      POSTGRES_PASSWORD: ${database_password}
+      POSTGRES_DB: default_database
+    env_file:
+     - .env
+    volumes:
+      - ${database_valume_location}:/var/lib/postgresql
+
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    command: tunnel --no-autoupdate run --token ${cloudflare_token}
+    depends_on:
+      - weatherforecast

@@ -1,0 +1,32 @@
+﻿services:
+  weatherforecast:
+    image: weatherforecast
+    user: "1000:1000"
+    ports:
+      - 5125:5125
+      - 8080:8080
+      - 8081:8081
+    build:
+      context: .
+      dockerfile: WeatherForecast/Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=default_database;User Id=${database_username};Password=${database_password};
+    env_file:
+      - .env
+    depends_on:
+      - database
+      
+  database:
+    image: "postgres:18"
+    user: "1000:1000"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: ${database_username}
+      POSTGRES_PASSWORD: ${database_password}
+      POSTGRES_DB: default_database
+    env_file:
+     - .env
+    volumes:
+      - ${database_valume_location}:/var/lib/postgresql
+
