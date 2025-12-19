@@ -2,7 +2,7 @@
   <configuration default="false" name="docker build image" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
     <deployment type="dockerfile">
       <settings>
-        <option name="imageTag" value="WeatherForecast" />
+        <option name="imageTag" value="weatherforecast" />
         <option name="containerName" value="WeatherForecast" />
         <option name="contextFolderPath" value="." />
         <option name="portBindings">
