@@ -8,6 +8,7 @@ public class AppDbContextFactory
 {
     public AppDbContext CreateDbContext(string[] args)
     {
+        
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseNpgsql("Host=localhost;Port=5432;Database=database;Username=postgres;Password=password")
             .Options;
