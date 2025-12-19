@@ -1,6 +1,5 @@
 ﻿services:
   weatherforecast:
-    image: WeatherForecast
     user: "1000:1000"
     ports:
       - 1390:5125
