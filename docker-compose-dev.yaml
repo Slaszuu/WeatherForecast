@@ -10,7 +10,7 @@
       context: .
       dockerfile: WeatherForecast/Dockerfile
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=default_database;User Id=${database_username};Password=${database_password};
+      - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=default_database;User Id=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};
     env_file:
       - .env
     depends_on:
@@ -22,11 +22,11 @@
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: ${database_username}
-      POSTGRES_PASSWORD: ${database_password}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: default_database
     env_file:
      - .env
     volumes:
-      - ${database_valume_location}:/var/lib/postgresql
+      - ${DATABASE_VOLUME_LOCATION}:/var/lib/postgresql
 

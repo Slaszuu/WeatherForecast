@@ -50,3 +50,5 @@ package.json
 
 #postgress 
 postgres_data/
+
+.env
