@@ -8,7 +8,7 @@ jobs:
   build-and-deploy:
     # Tutaj wskazujemy, że chcemy użyć self-hosted runnera
     # Możesz dodać etykiety zdefiniowane w docker-compose (np. 'local')
-    runs-on: oskar-home-server
+    runs-on: [oskar-home-server, local]
 
     steps:
       - name: Checkout code
