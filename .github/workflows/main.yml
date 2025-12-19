@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: [self-hosted, oskar-home-server]
+    runs-on: [oskar-home-server-2]
 
     steps:
       - name: Checkout code
