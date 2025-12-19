@@ -1,0 +1,27 @@
+name: Deploy to Oskar home server
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    # Tutaj wskazujemy, że chcemy użyć self-hosted runnera
+    # Możesz dodać etykiety zdefiniowane w docker-compose (np. 'local')
+    runs-on: [self-hosted, local]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          echo "DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}" >> .env
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}" >> .env
+          echo "DATABASE_VOLUME_LOCATION=${{ secrets.DATABASE_PASSWORD }}" >> .env
+          echo "CLOUDFLARE_TOKEN=${{ secrets.CLOUDFLARE_TOKEN }}" >> .env
+      - name: Stop running containers
+        run: docker compose down
+
+      - name: Start containers
+        run: docker compose up -d --build
