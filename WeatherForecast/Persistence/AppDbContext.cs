@@ -11,7 +11,7 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Sensors> Sensors => Set<Sensors>();
+    public DbSet<Sensors> Sensors { get; set; } 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

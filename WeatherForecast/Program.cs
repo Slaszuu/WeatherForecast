@@ -1,5 +1,11 @@
+#region
+
 using System.Reflection;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using WeatherForecast.CQRS.ExceptionHandling;
+
+#endregion
 
 namespace WeatherForecast;
 
@@ -15,22 +21,27 @@ public class Program
         Console.WriteLine("--------------------------------------------------");
         Console.WriteLine($"[DEBUG] Connection String: {connString}");
         Console.WriteLine("--------------------------------------------------");
-        
+
         // Add services to the container.
-        
+        builder.Services.AddDbContext<DbContext>(options =>
+            options.UseNpgsql(
+                builder.Configuration.GetConnectionString("DefaultConnection")));
+
         builder.Services.Scan(scan => scan
             .FromAssemblies(Assembly.GetExecutingAssembly())
             .AddClasses(c => c.Where(t => t.Name.EndsWith("Mapper")))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
-        
+
+        //MediatR
+        builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()); });
+
+        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
+
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
-        
-        builder.Services.AddDbContext<DbContext>(options =>
-            options.UseNpgsql(
-                builder.Configuration.GetConnectionString("DefaultConnection")));
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

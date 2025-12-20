@@ -1,16 +1,19 @@
-﻿namespace WeatherForecast.Persistence;
+﻿#region
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-public class AppDbContextFactory 
+#endregion
+
+namespace WeatherForecast.Persistence;
+
+public class AppDbContextFactory
     : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
-        
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql("Host=localhost;Port=5432;Database=database;Username=postgres;Password=password")
+            .UseNpgsql("Host=localhost;Port=5432;Database=default_database;Username=postgres;Password=password")
             .Options;
 
         return new AppDbContext(options);
