@@ -1,32 +1,35 @@
 ﻿using WeatherForecast.DTOs;
+using WeatherForecast.Mappers.Interface;
 using WeatherForecast.Persistence.Entities;
 using WeatherForecast.RequestModels;
 
 namespace WeatherForecast.Mappers;
 
-public static class SensorsMapper
+public class SensorsMapper : 
+    IMapper<EspRequest, SensorsDTO>,
+    IMapper<SensorsDTO, Sensors>
 {
-    public static SensorsDTO ToDto(EspRequest request)
+    public SensorsDTO Map(EspRequest source)
     {
         return new SensorsDTO
         {
-            Timestamp = request.Time,
-            Temperature = request.Temperature,
-            Pressure = request.Pressure,
-            Humidity = request.Humidity,
-            Lux = request.Lux,
+            Timestamp = source.Time,
+            Temperature = source.Temperature,
+            Pressure = source.Pressure,
+            Humidity = source.Humidity,
+            Lux = source.Lux,
         };
     }
-    
-    public static Sensors ToEntity(SensorsDTO dto)
+
+    public Sensors Map(SensorsDTO source)
     {
         return new Sensors
         {
-            Timestamp = dto.Timestamp,
-            Temperature = dto.Temperature,
-            Pressure = dto.Pressure,
-            Humidity = dto.Humidity,
-            Lux = dto.Lux,
+            Timestamp = source.Timestamp,
+            Temperature = source.Temperature,
+            Pressure = source.Pressure,
+            Humidity = source.Humidity,
+            Lux = source.Lux,
         };
     }
 }

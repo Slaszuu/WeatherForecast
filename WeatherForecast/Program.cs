@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 
 namespace WeatherForecast;
@@ -16,7 +17,13 @@ public class Program
         Console.WriteLine("--------------------------------------------------");
         
         // Add services to the container.
-
+        
+        builder.Services.Scan(scan => scan
+            .FromAssemblies(Assembly.GetExecutingAssembly())
+            .AddClasses(c => c.Where(t => t.Name.EndsWith("Mapper")))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+        
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         builder.Services.AddOpenApi();
