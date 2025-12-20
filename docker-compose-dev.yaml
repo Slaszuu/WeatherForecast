@@ -10,7 +10,7 @@
       context: .
       dockerfile: WeatherForecast/Dockerfile
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Port=5432;Database=default_database;UserId=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=default_database;UserId=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};
     env_file:
       - .env
     depends_on:

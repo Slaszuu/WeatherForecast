@@ -4,6 +4,7 @@ using System.Reflection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WeatherForecast.CQRS.ExceptionHandling;
+using WeatherForecast.Persistence;
 
 #endregion
 
@@ -23,7 +24,7 @@ public class Program
         Console.WriteLine("--------------------------------------------------");
 
         // Add services to the container.
-        builder.Services.AddDbContext<DbContext>(options =>
+        builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseNpgsql(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
 
