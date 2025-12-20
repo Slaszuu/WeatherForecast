@@ -1,6 +1,4 @@
-﻿using WeatherForecast.DTOs;
-
-namespace WeatherForecast.RequestModels;
+﻿namespace WeatherForecast.RequestModels;
 
 public record EspRequest
 {

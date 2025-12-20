@@ -1,11 +1,15 @@
-﻿using WeatherForecast.DTOs;
+﻿#region
+
+using WeatherForecast.DTOs;
 using WeatherForecast.Mappers.Interface;
 using WeatherForecast.Persistence.Entities;
 using WeatherForecast.RequestModels;
 
+#endregion
+
 namespace WeatherForecast.Mappers;
 
-public class SensorsMapper : 
+public class SensorsMapper :
     IMapper<EspRequest, SensorsDTO>,
     IMapper<SensorsDTO, Sensors>
 {
