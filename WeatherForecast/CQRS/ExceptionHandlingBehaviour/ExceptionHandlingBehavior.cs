@@ -4,11 +4,11 @@ using MediatR;
 
 #endregion
 
-namespace WeatherForecast.CQRS.ExceptionHandling;
+namespace WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 
 public class ExceptionHandlingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
-    where TResponse : IOperationResult, new()
+    where TResponse : IOperationResult<Unit>, new()
 {
     public async Task<TResponse> Handle(
         TRequest request,
@@ -26,7 +26,6 @@ public class ExceptionHandlingBehavior<TRequest, TResponse> : IPipelineBehavior<
                 Status = OperationStatus.Exception,
                 ExceptionMessage = ex.Message
             };
-
             return result;
         }
     }

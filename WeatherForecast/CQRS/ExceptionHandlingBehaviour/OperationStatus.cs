@@ -1,4 +1,4 @@
-﻿namespace WeatherForecast.CQRS.ExceptionHandling;
+﻿namespace WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 
 public enum OperationStatus
 {
