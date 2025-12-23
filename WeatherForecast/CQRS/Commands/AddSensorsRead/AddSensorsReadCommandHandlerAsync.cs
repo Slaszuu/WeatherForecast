@@ -1,7 +1,7 @@
 ﻿#region
 
 using MediatR;
-using WeatherForecast.CQRS.ExceptionHandling;
+using WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.DTOs;
 using WeatherForecast.Mappers.Interface;
 using WeatherForecast.Persistence;
@@ -9,9 +9,9 @@ using WeatherForecast.Persistence.Entities;
 
 #endregion
 
-namespace WeatherForecast.CQRS.AddSensorsRead;
+namespace WeatherForecast.CQRS.Commands.AddSensorsRead;
 
-public class AddSensorsReadCommandHandler(AppDbContext dbContext, IMapper<SensorsDTO, Sensors> mapper)
+public class AddSensorsReadCommandHandlerAsync(AppDbContext dbContext, IMapper<SensorsDTO, Sensors> mapper)
     : IRequestHandler<AddSensorsReadCommand, OperationResult<Unit>>
 {
     public async Task<OperationResult<Unit>> Handle(AddSensorsReadCommand request, CancellationToken cancellationToken)
@@ -20,9 +20,6 @@ public class AddSensorsReadCommandHandler(AppDbContext dbContext, IMapper<Sensor
         await dbContext.AddAsync(sensors, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return new OperationResult<Unit>
-        {
-            Status = OperationStatus.Success
-        };
+        return OperationResult<Unit>.Success(default);
     }
 }
