@@ -1,13 +1,9 @@
-﻿#region
-
-using MediatR;
+﻿using MediatR;
 using WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.DTOs;
 using WeatherForecast.Mappers.Interface;
 using WeatherForecast.Persistence;
 using WeatherForecast.Persistence.Entities;
-
-#endregion
 
 namespace WeatherForecast.CQRS.Commands.AddSensorsRead;
 

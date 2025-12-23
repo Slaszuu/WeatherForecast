@@ -1,13 +1,9 @@
-#region
-
 using System.Reflection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.Persistence;
 using WeatherForecast.Services.HttpResponseService;
-
-#endregion
 
 namespace WeatherForecast;
 

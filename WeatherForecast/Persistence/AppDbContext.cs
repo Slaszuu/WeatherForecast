@@ -1,8 +1,7 @@
-﻿using WeatherForecast.Persistence.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using WeatherForecast.Persistence.Entities;
 
 namespace WeatherForecast.Persistence;
-
-using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
 {
@@ -11,7 +10,7 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Sensors> Sensors { get; set; } 
+    public DbSet<Sensors> Sensors { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

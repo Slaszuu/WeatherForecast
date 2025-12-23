@@ -13,4 +13,5 @@ Content-Type: application/json
   "humidity": 45.8,
   "lux": 320.0
 }
+
 ###

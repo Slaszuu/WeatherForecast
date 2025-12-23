@@ -1,11 +1,7 @@
-﻿#region
-
-using WeatherForecast.DTOs;
+﻿using WeatherForecast.DTOs;
 using WeatherForecast.Mappers.Interface;
 using WeatherForecast.Persistence.Entities;
 using WeatherForecast.RequestModels;
-
-#endregion
 
 namespace WeatherForecast.Mappers;
 

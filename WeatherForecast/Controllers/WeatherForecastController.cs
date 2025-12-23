@@ -1,5 +1,3 @@
-#region
-
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WeatherForecast.CQRS.Commands.AddSensorsRead;
@@ -8,8 +6,6 @@ using WeatherForecast.DTOs;
 using WeatherForecast.Mappers.Interface;
 using WeatherForecast.RequestModels;
 using WeatherForecast.Services.HttpResponseService;
-
-#endregion
 
 namespace WeatherForecast.Controllers;
 

@@ -1,9 +1,5 @@
-﻿#region
-
-using System.Net;
+﻿using System.Net;
 using WeatherForecast.CQRS.ExceptionHandlingBehaviour;
-
-#endregion
 
 namespace WeatherForecast.Services.HttpResponseService;
 

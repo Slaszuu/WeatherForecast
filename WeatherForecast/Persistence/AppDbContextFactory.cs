@@ -1,9 +1,5 @@
-﻿#region
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
-#endregion
 
 namespace WeatherForecast.Persistence;
 

@@ -25,7 +25,7 @@
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: default_database
     env_file:
-     - .env
+      - .env
     volumes:
       - ${DATABASE_VOLUME_LOCATION}:/var/lib/postgresql
 
