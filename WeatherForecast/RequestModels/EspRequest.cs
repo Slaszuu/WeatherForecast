@@ -3,6 +3,7 @@
 public record EspRequest
 {
     public required DateTimeOffset Time { get; init; }
+    public double CpuTemperature { get; init; }
     public double Temperature { get; init; }
     public double Pressure { get; init; }
     public double Humidity { get; init; }

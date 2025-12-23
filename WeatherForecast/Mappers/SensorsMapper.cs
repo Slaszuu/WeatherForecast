@@ -11,13 +11,28 @@ namespace WeatherForecast.Mappers;
 
 public class SensorsMapper :
     IMapper<EspRequest, SensorsDTO>,
-    IMapper<SensorsDTO, Sensors>
+    IMapper<SensorsDTO, Sensors>,
+    IMapper<Sensors, SensorsDTO>
 {
     public SensorsDTO Map(EspRequest source)
     {
         return new SensorsDTO
         {
             Timestamp = source.Time,
+            CpuTemperature = source.CpuTemperature,
+            Temperature = source.Temperature,
+            Pressure = source.Pressure,
+            Humidity = source.Humidity,
+            Lux = source.Lux,
+        };
+    }
+
+    public SensorsDTO Map(Sensors source)
+    {
+        return new SensorsDTO
+        {
+            Timestamp = source.Timestamp,
+            CpuTemperature = source.CpuTemperature,
             Temperature = source.Temperature,
             Pressure = source.Pressure,
             Humidity = source.Humidity,
@@ -30,6 +45,7 @@ public class SensorsMapper :
         return new Sensors
         {
             Timestamp = source.Timestamp,
+            CpuTemperature = source.CpuTemperature,
             Temperature = source.Temperature,
             Pressure = source.Pressure,
             Humidity = source.Humidity,
