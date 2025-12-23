@@ -3,8 +3,9 @@
 using System.Reflection;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WeatherForecast.CQRS.ExceptionHandling;
+using WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.Persistence;
+using WeatherForecast.Services.HttpResponseService;
 
 #endregion
 
@@ -36,8 +37,9 @@ public class Program
 
         //MediatR
         builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()); });
-
         builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
+
+        builder.Services.AddTransient<IHttpResponseService, HttpResponseService>();
 
         builder.Services.AddControllers();
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
