@@ -9,11 +9,11 @@ using WeatherForecast.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace WeatherForecast.Infrastructure.Persistence.Migrations
+namespace WeatherForecast.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251223224657_Weather entity added")]
-    partial class Weatherentityadded
+    [Migration("20251224182800_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,10 @@ namespace WeatherForecast.Infrastructure.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WeatherForecast.API.Persistence.Entities.Sensors", b =>
+            modelBuilder.Entity("WeatherForecast.Domain.Entities.Sensors", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<double>("CpuTemperature")
                         .HasColumnType("double precision");
@@ -58,13 +55,10 @@ namespace WeatherForecast.Infrastructure.Persistence.Migrations
                     b.ToTable("sensors", (string)null);
                 });
 
-            modelBuilder.Entity("WeatherForecast.API.Persistence.Entities.Weather", b =>
+            modelBuilder.Entity("WeatherForecast.Domain.Entities.Weather", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<double>("Humidity")
                         .HasColumnType("double precision");

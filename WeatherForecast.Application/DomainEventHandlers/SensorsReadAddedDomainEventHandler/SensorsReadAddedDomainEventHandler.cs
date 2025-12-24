@@ -13,6 +13,5 @@ public class SensorsReadAddedDomainEventHandler(IMeasurementsCalibrationService 
         var weather = calibrationService.Calibrate(notification.Sensors);
 
         await dbContext.AddAsync(weather, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

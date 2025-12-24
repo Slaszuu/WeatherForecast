@@ -12,6 +12,9 @@ public class SensorsConfiguration : IEntityTypeConfiguration<Sensors>
 
         builder.HasKey(e => e.Id);
 
+        builder.Property(w => w.Id)
+            .ValueGeneratedNever();
+
         builder.Property(e => e.Temperature).IsRequired();
         builder.Property(e => e.CpuTemperature).IsRequired();
         builder.Property(e => e.Pressure).IsRequired();

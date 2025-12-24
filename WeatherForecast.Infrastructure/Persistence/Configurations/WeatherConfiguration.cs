@@ -12,6 +12,9 @@ public class WeatherConfiguration : IEntityTypeConfiguration<Weather>
 
         builder.HasKey(e => e.Id);
 
+        builder.Property(w => w.Id)
+            .ValueGeneratedNever();
+
         builder.Property(e => e.Temperature).IsRequired();
         builder.Property(e => e.Pressure).IsRequired();
         builder.Property(e => e.Humidity).IsRequired();

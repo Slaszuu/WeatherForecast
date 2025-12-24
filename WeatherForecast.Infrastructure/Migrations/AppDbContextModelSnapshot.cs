@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WeatherForecast.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace WeatherForecast.Infrastructure.Persistence.Migrations
+namespace WeatherForecast.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251223225918_Weather ID autoincrement fix")]
-    partial class WeatherIDautoincrementfix
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,13 +22,10 @@ namespace WeatherForecast.Infrastructure.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("WeatherForecast.API.Persistence.Entities.Sensors", b =>
+            modelBuilder.Entity("WeatherForecast.Domain.Entities.Sensors", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<double>("CpuTemperature")
                         .HasColumnType("double precision");
@@ -58,10 +52,10 @@ namespace WeatherForecast.Infrastructure.Persistence.Migrations
                     b.ToTable("sensors", (string)null);
                 });
 
-            modelBuilder.Entity("WeatherForecast.API.Persistence.Entities.Weather", b =>
+            modelBuilder.Entity("WeatherForecast.Domain.Entities.Weather", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
 
                     b.Property<double>("Humidity")
                         .HasColumnType("double precision");

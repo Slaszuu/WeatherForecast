@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WeatherForecast.Domain.Entities;
+﻿namespace WeatherForecast.Domain.Entities;
 
 public class Weather
 {
@@ -9,17 +6,14 @@ public class Weather
     {
     }
 
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public int Id { get; init; }
-
+    public Guid Id { get; init; }
     public DateTimeOffset Timestamp { get; init; }
     public double Temperature { get; init; }
     public double Pressure { get; init; }
     public double Humidity { get; init; }
     public double Lux { get; init; }
 
-    public static Weather Create(int id, DateTimeOffset timestamp, double temperature, double humidity,
+    public static Weather Create(Guid id, DateTimeOffset timestamp, double temperature, double humidity,
         double pressure,
         double lux)
     {

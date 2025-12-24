@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using UUIDNext;
 using WeatherForecast.Domain.Events;
 using WeatherForecast.Domain.Events.Interface;
 
@@ -12,8 +12,7 @@ public class Sensors
     {
     }
 
-    [Key] public int Id { get; init; }
-
+    public Guid Id { get; init; } = Uuid.NewDatabaseFriendly(Database.PostgreSql);
     public DateTimeOffset Timestamp { get; init; }
     public double CpuTemperature { get; init; }
     public double Temperature { get; init; }

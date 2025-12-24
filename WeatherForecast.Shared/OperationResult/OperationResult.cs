@@ -15,7 +15,7 @@ public class OperationResult<T> : IOperationResult<T>
             Status = OperationStatus.Success
         };
 
-    public static OperationResult<T> Failure(string? message = null) =>
+    public static OperationResult<T> Failure(string message) =>
         new()
         {
             Status = OperationStatus.Failure,

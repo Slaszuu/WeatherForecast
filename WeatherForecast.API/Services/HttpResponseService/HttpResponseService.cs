@@ -17,9 +17,9 @@ public class HttpResponseService : IHttpResponseService
                     ExceptionMessage: null),
             OperationStatus.Failure =>
                 new HttpResponse<T>(
-                    StatusCode: (int)HttpStatusCode.BadRequest,
+                    StatusCode: (int)HttpStatusCode.NotFound,
                     Result: default,
-                    ExceptionMessage: null),
+                    ExceptionMessage: operationResult.ExceptionMessage),
             _ =>
                 new HttpResponse<T>(
                     StatusCode: (int)HttpStatusCode.InternalServerError,

@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace WeatherForecast.Persistence.Migrations
+namespace WeatherForecast.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,9 +15,9 @@ namespace WeatherForecast.Persistence.Migrations
                 name: "sensors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Timestamp = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CpuTemperature = table.Column<double>(type: "double precision", nullable: false),
                     Temperature = table.Column<double>(type: "double precision", nullable: false),
                     Pressure = table.Column<double>(type: "double precision", nullable: false),
                     Humidity = table.Column<double>(type: "double precision", nullable: false),
@@ -29,9 +28,30 @@ namespace WeatherForecast.Persistence.Migrations
                     table.PrimaryKey("PK_sensors", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "weather",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Timestamp = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Temperature = table.Column<double>(type: "double precision", nullable: false),
+                    Pressure = table.Column<double>(type: "double precision", nullable: false),
+                    Humidity = table.Column<double>(type: "double precision", nullable: false),
+                    Lux = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_weather", x => x.Id);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_sensors_Timestamp",
                 table: "sensors",
+                column: "Timestamp");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_weather_Timestamp",
+                table: "weather",
                 column: "Timestamp");
         }
 
@@ -40,6 +60,9 @@ namespace WeatherForecast.Persistence.Migrations
         {
             migrationBuilder.DropTable(
                 name: "sensors");
+
+            migrationBuilder.DropTable(
+                name: "weather");
         }
     }
 }

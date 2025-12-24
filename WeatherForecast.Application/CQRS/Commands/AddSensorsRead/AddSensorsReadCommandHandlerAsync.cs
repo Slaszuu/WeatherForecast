@@ -19,14 +19,11 @@ public class AddSensorsReadCommandHandlerAsync(AppDbContext dbContext, IDomainEv
             humidity: request.SensorsDTO.Humidity,
             lux: request.SensorsDTO.Lux);
 
-        await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
-
         await dbContext.AddAsync(sensors, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
 
         await domainEventsDispatcher.DispatchAsync(sensors.DomainEvents, cancellationToken);
 
-        await transaction.CommitAsync(cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
 
         return OperationResult<Unit>.Success(default);
     }
