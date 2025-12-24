@@ -10,15 +10,13 @@ public class MeasurementsCalibrationService : IMeasurementsCalibrationService
         var temperature = CalculateRealTemperature(sensors);
         var humidity = CalculateRealHumidity(sensors, temperature);
 
-        return new Weather
-        {
-            Id = sensors.Id,
-            Timestamp = sensors.Timestamp,
-            Temperature = temperature,
-            Pressure = sensors.Pressure,
-            Humidity = humidity,
-            Lux = sensors.Lux,
-        };
+        return Weather.Create(
+            id: sensors.Id,
+            timestamp: sensors.Timestamp,
+            temperature: temperature,
+            humidity: humidity,
+            pressure: sensors.Pressure,
+            lux: sensors.Lux);
     }
 
     private static double CalculateRealTemperature(Sensors sensors) =>

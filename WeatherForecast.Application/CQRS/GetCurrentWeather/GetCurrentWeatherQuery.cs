@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.Application.DTOs;
+using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.Application.CQRS.GetCurrentWeather;
 

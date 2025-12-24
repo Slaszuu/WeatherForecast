@@ -1,4 +1,4 @@
-﻿using WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
+﻿using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.API.Services.HttpResponseService;
 

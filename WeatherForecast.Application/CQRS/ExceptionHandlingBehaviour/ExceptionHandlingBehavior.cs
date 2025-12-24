@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using WeatherForecast.Shared.Enums;
+using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
 

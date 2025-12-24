@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.Application.DTOs;
 using WeatherForecast.Application.Mappers.Interface;
 using WeatherForecast.Domain.Entities;
 using WeatherForecast.Infrastructure.Persistence;
+using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.Application.CQRS.GetCurrentWeather;
 
@@ -14,6 +14,7 @@ public class GetCurrentWeatherHandlerAsync(AppDbContext dbContext, IMapper<Weath
     public async Task<OperationResult<WeatherDTO>> Handle(GetCurrentWeatherQuery request, CancellationToken cancellationToken)
     {
         var entity = await dbContext.Weather
+            .AsNoTracking()
             .OrderByDescending(e => e.Id)
             .FirstOrDefaultAsync(cancellationToken);
 

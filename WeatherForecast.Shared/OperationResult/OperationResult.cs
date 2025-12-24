@@ -1,4 +1,6 @@
-﻿namespace WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
+﻿using WeatherForecast.Shared.Enums;
+
+namespace WeatherForecast.Shared.OperationResult;
 
 public class OperationResult<T> : IOperationResult<T>
 {
@@ -7,8 +9,16 @@ public class OperationResult<T> : IOperationResult<T>
     public string? ExceptionMessage { get; set; }
 
     public static OperationResult<T> Success(T result) =>
-        new() { Result = result, Status = OperationStatus.Success };
+        new()
+        {
+            Result = result,
+            Status = OperationStatus.Success
+        };
 
     public static OperationResult<T> Failure(string? message = null) =>
-        new() { Status = OperationStatus.Failure, ExceptionMessage = message };
+        new()
+        {
+            Status = OperationStatus.Failure,
+            ExceptionMessage = message
+        };
 }

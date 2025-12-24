@@ -1,32 +1,30 @@
 ﻿using MediatR;
-using WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
-using WeatherForecast.Application.DTOs;
-using WeatherForecast.Application.Mappers.Interface;
+using WeatherForecast.Application.DomainEventsDispatcher;
 using WeatherForecast.Domain.Entities;
-using WeatherForecast.Domain.Services.MeasurementsCalibrationService;
 using WeatherForecast.Infrastructure.Persistence;
+using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.Application.CQRS.Commands.AddSensorsRead;
 
-public class AddSensorsReadCommandHandlerAsync(
-    AppDbContext dbContext,
-    IMapper<SensorsDTO, Sensors> mapper,
-    IMeasurementsCalibrationService measurementsCalibrationService)
+public class AddSensorsReadCommandHandlerAsync(AppDbContext dbContext, IDomainEventsDispatcher domainEventsDispatcher)
     : IRequestHandler<AddSensorsReadCommand, OperationResult<Unit>>
 {
     public async Task<OperationResult<Unit>> Handle(AddSensorsReadCommand request, CancellationToken cancellationToken)
     {
-        var sensors = mapper.Map(request.SensorsDTO);
+        var sensors = Sensors.Create(
+            timestamp: request.SensorsDTO.Timestamp,
+            cpuTemperature: request.SensorsDTO.CpuTemperature,
+            temperature: request.SensorsDTO.Temperature,
+            pressure: request.SensorsDTO.Pressure,
+            humidity: request.SensorsDTO.Humidity,
+            lux: request.SensorsDTO.Lux);
 
         await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
 
         await dbContext.AddAsync(sensors, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        var realWeather = measurementsCalibrationService.Calibrate(sensors);
-
-        await dbContext.AddAsync(realWeather, cancellationToken);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        await domainEventsDispatcher.DispatchAsync(sensors.DomainEvents, cancellationToken);
 
         await transaction.CommitAsync(cancellationToken);
 

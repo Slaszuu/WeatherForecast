@@ -1,4 +1,6 @@
-﻿namespace WeatherForecast.Application.CQRS.ExceptionHandlingBehaviour;
+﻿using WeatherForecast.Shared.Enums;
+
+namespace WeatherForecast.Shared.OperationResult;
 
 public interface IOperationResult
 {
