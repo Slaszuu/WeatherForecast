@@ -1,0 +1,24 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using WeatherForecast.Persistence.Entities;
+
+namespace WeatherForecast.Persistence.Configurations;
+
+public class SensorsConfiguration : IEntityTypeConfiguration<Sensors>
+{
+    public void Configure(EntityTypeBuilder<Sensors> builder)
+    {
+        builder.ApplyDefaultTableName();
+
+        builder.HasKey(e => e.Id);
+
+        builder.Property(e => e.Temperature).IsRequired();
+        builder.Property(e => e.CpuTemperature).IsRequired();
+        builder.Property(e => e.Pressure).IsRequired();
+        builder.Property(e => e.Humidity).IsRequired();
+        builder.Property(e => e.Lux).IsRequired();
+        builder.Property(e => e.Timestamp).IsRequired();
+
+        builder.HasIndex(e => e.Timestamp);
+    }
+}
