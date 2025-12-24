@@ -1,14 +1,14 @@
 ﻿services:
   weatherforecast:
-    image: weatherforecast
+    build:
+      context: .   # ROOT solution!
+      dockerfile: Dockerfile
+    image: weather-forecast
     user: "1000:1000"
     ports:
-      - 5125:5125
-      - 8080:8080
-      - 8081:8081
-    build:
-      context: .
-      dockerfile: WeatherForecast/Dockerfile
+      - "5125:5125"
+      - "8080:8080"
+      - "8081:8081"
     environment:
       - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=default_database;UserId=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};
     env_file:
@@ -19,7 +19,7 @@
   database:
     image: "postgres:18"
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
@@ -28,4 +28,3 @@
       - .env
     volumes:
       - ${DATABASE_VOLUME_LOCATION}:/var/lib/postgresql
-
