@@ -28,8 +28,9 @@ public class MeasurementsCalibrationService : IMeasurementsCalibrationService
     {
         var deltaT = sensors.Temperature - realTemperature;
         var humidity =
-            sensors.Humidity *
-            Math.Exp(Consts.MagnusVaporA * deltaT / (Consts.MagnusVaporB + realTemperature));
+            sensors.Humidity
+            * Math.Exp(Consts.MagnusVaporA * deltaT / (Consts.MagnusVaporB + realTemperature))
+            + Consts.HumidityCalibrationOffset;
         return Math.Clamp(humidity, 0.0, 100.0);
     }
 }
