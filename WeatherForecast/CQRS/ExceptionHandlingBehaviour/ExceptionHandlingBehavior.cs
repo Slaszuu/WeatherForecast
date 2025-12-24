@@ -4,7 +4,7 @@ namespace WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 
 public class ExceptionHandlingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
-    where TResponse : IOperationResult<Unit>, new()
+    where TResponse : IOperationResult, new()
 {
     public async Task<TResponse> Handle(
         TRequest request,

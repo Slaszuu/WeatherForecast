@@ -1,8 +1,12 @@
 ﻿namespace WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 
-public interface IOperationResult<T>
+public interface IOperationResult
 {
-    T? Result { get; set; }
     OperationStatus Status { get; set; }
     string? ExceptionMessage { get; set; }
+}
+
+public interface IOperationResult<T> : IOperationResult
+{
+    T? Result { get; set; }
 }
