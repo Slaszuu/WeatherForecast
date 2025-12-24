@@ -1,13 +1,9 @@
-using System.Reflection;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WeatherForecast.CQRS.ExceptionHandlingBehaviour;
 using WeatherForecast.Persistence;
-using WeatherForecast.Services.HttpResponseService;
 
 namespace WeatherForecast;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {
@@ -15,30 +11,16 @@ public class Program
 
         var connString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-        //TODO: remove this after making sure the connection string is resolved correctly 
         Console.WriteLine("--------------------------------------------------");
         Console.WriteLine($"[DEBUG] Connection String: {connString}");
         Console.WriteLine("--------------------------------------------------");
 
-        // Add services to the container.
-        builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(
-                builder.Configuration.GetConnectionString("DefaultConnection")));
+        builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connString));
 
-        builder.Services.Scan(scan => scan
-            .FromAssemblies(Assembly.GetExecutingAssembly())
-            .AddClasses(c => c.Where(t => t.Name.EndsWith("Mapper")))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
-
-        //MediatR
-        builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()); });
-        builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ExceptionHandlingBehavior<,>));
-
-        builder.Services.AddTransient<IHttpResponseService, HttpResponseService>();
+        builder.Services.AddApplicationServices();
 
         builder.Services.AddControllers();
-        // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
         builder.Services.AddOpenApi();
 
         var app = builder.Build();

@@ -4,17 +4,17 @@ namespace WeatherForecast.Persistence.Entities;
 
 public class Sensors
 {
-    [Key] public int Id { get; set; }
+    [Key] public int Id { get; init; }
 
-    public DateTimeOffset Timestamp { get; set; }
+    public DateTimeOffset Timestamp { get; init; }
 
-    public double CpuTemperature { get; set; }
+    public double CpuTemperature { get; init; }
 
-    public double Temperature { get; set; }
+    public double Temperature { get; init; }
 
-    public double Pressure { get; set; }
+    public double Pressure { get; init; }
 
-    public double Humidity { get; set; }
+    public double Humidity { get; init; }
 
-    public double Lux { get; set; }
+    public double Lux { get; init; }
 }
