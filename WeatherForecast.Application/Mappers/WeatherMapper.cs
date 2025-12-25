@@ -1,6 +1,6 @@
-﻿using WeatherForecast.Application.DTOs;
-using WeatherForecast.Application.Mappers.Interface;
+﻿using WeatherForecast.Application.Mappers.Interface;
 using WeatherForecast.Domain.Entities;
+using WeatherForecast.Shared.DTOs;
 
 namespace WeatherForecast.Application.Mappers;
 

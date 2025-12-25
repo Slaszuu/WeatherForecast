@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using WeatherForecast.Application.DTOs;
 using WeatherForecast.Application.Mappers.Interface;
 using WeatherForecast.Domain.Entities;
 using WeatherForecast.Infrastructure.Persistence;
+using WeatherForecast.Shared.DTOs;
 using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.Application.CQRS.Queries.GetLastSensorsRead;

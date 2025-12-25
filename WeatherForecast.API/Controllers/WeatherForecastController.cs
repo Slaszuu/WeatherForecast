@@ -5,7 +5,7 @@ using WeatherForecast.API.Services.HttpResponseService;
 using WeatherForecast.Application.CQRS.Commands.AddSensorsRead;
 using WeatherForecast.Application.CQRS.GetCurrentWeather;
 using WeatherForecast.Application.CQRS.Queries.GetLastSensorsRead;
-using WeatherForecast.Application.DTOs;
+using WeatherForecast.Shared.DTOs;
 
 namespace WeatherForecast.API.Controllers;
 

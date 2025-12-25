@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WeatherForecast.Infrastructure.Persistence;
+using WeatherForecast.Infrastructure.SignalR;
 
 namespace WeatherForecast.API;
 
@@ -23,13 +24,29 @@ public static class Program
 
         builder.Services.AddOpenApi();
 
+        // CORS
+        builder.Services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
+
         var app = builder.Build();
+
+        app.UseCors();
 
         using (var scope = app.Services.CreateScope())
         {
             var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             db.Database.Migrate();
         }
+
+        app.MapHub<WeatherHub>(WeatherHub.HubUrl);
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())

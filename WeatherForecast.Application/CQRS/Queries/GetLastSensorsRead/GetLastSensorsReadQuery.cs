@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using WeatherForecast.Application.DTOs;
+using WeatherForecast.Shared.DTOs;
 using WeatherForecast.Shared.OperationResult;
 
 namespace WeatherForecast.Application.CQRS.Queries.GetLastSensorsRead;
