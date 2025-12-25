@@ -19,16 +19,31 @@ public class MeasurementsCalibrationService : IMeasurementsCalibrationService
             lux: sensors.Lux);
     }
 
-    private static double CalculateRealTemperature(Sensors sensors) =>
-        sensors.Temperature - Consts.TemperatureCalibrationOffset;
+    private static double CalculateRealTemperature(Sensors sensors)
+    {
+        const double k = -0.5;
+
+        var t = sensors.Temperature;
+
+        var calibrated = t - Consts.TemperatureCalibrationOffset + k * t * t;
+
+        return calibrated;
+    }
 
     private static double CalculateRealHumidity(Sensors sensors, double realTemperature)
     {
+        const double belowZeroCorrection = 1.05;
+        const double aboveZeroCorrection = 1.2;
+
         var deltaT = sensors.Temperature - realTemperature;
-        var humidity =
-            sensors.Humidity
-            * Math.Exp(Consts.MagnusVaporA * deltaT / (Consts.MagnusVaporB + realTemperature))
-            + Consts.HumidityCalibrationOffset;
+
+        // Magnus–Tetens factor
+        var factor = Math.Exp(Consts.MagnusVaporA * deltaT / (Consts.MagnusVaporB + realTemperature));
+
+        factor = Math.Min(factor, realTemperature < 0 ? belowZeroCorrection : aboveZeroCorrection);
+
+        var humidity = sensors.Humidity * factor;
+
         return Math.Clamp(humidity, 0.0, 100.0);
     }
 }

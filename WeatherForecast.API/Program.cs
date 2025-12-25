@@ -29,7 +29,7 @@ public static class Program
         {
             options.AddDefaultPolicy(policy =>
             {
-                policy.WithOrigins("http://localhost:3000")
+                policy.WithOrigins("http://localhost:4200")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -37,6 +37,8 @@ public static class Program
         });
 
         var app = builder.Build();
+
+        app.UseRouting();
 
         app.UseCors();
 
