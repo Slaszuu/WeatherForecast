@@ -12,4 +12,9 @@ public class DomainEventsDispatcher(IMediator mediator) : IDomainEventsDispatche
             await mediator.Publish(domainEvent, cancellationToken);
         }
     }
+
+    public async Task DispatchAsync(IDomainEvent domainEvent, CancellationToken cancellationToken = default)
+    {
+        await mediator.Publish(domainEvent, cancellationToken);
+    }
 }
