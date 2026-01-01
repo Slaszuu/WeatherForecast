@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using WeatherForecast.API.Extensions;
 using WeatherForecast.Infrastructure.Persistence;
 using WeatherForecast.Infrastructure.SignalR;
 
@@ -11,12 +12,10 @@ public static class Program
         var builder = WebApplication.CreateBuilder(args);
 
         var connString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-        Console.WriteLine("--------------------------------------------------");
-        Console.WriteLine($"[DEBUG] Connection String: {connString}");
-        Console.WriteLine("--------------------------------------------------");
-
-        builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connString));
+        builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connString, npgqsqlOptions =>
+        {
+            npgqsqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+        }));
 
         builder.Services.AddApplicationServices();
 
@@ -42,18 +41,13 @@ public static class Program
 
         app.UseCors();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            db.Database.Migrate();
-        }
-
         app.MapHub<WeatherHub>(WeatherHub.HubUrl);
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
+            // Configure the HTTP request pipeline.
             app.MapOpenApi();
+            app.ApplyMigrations();
         }
 
         app.UseAuthorization();

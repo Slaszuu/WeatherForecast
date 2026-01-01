@@ -9,7 +9,7 @@
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:5125
-      - ConnectionStrings__DefaultConnection=Server=db;Port=4737;Database=default_database;User Id=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};
+      - ConnectionStrings__DefaultConnection=Server=db;Port=4737;User Id=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};
     env_file:
       - .env
     depends_on:
@@ -23,9 +23,8 @@
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: default_database
     env_file:
-      - .env
+     - .env
     volumes:
       - ${DATABASE_VOLUME_LOCATION}:/var/lib/postgresql
 
