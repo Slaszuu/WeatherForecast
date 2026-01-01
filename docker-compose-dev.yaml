@@ -10,6 +10,8 @@
       dockerfile: Dockerfile
     environment:
       - ConnectionStrings__DefaultConnection=Host=database;Port=5432;UserId=${DATABASE_USERNAME};Password=${DATABASE_PASSWORD};Database=postgres;
+      - CORS_ORIGINS=${CORS_ORIGINS}
+      - RUN_MIGRATION=${RUN_MIGRATION}
     env_file:
       - .env
     depends_on:

@@ -24,11 +24,12 @@ public static class Program
         builder.Services.AddOpenApi();
 
         // CORS
+        var origins = builder.Configuration.GetValue<string>("CORS_ORIGINS")!;
         builder.Services.AddCors(options =>
         {
             options.AddDefaultPolicy(policy =>
             {
-                policy.WithOrigins("http://localhost:4200")
+                policy.WithOrigins(origins)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -47,6 +48,13 @@ public static class Program
         {
             // Configure the HTTP request pipeline.
             app.MapOpenApi();
+        }
+
+        //TODO: Move the migrations to separated docker compose or github actions
+        var runMigrationEnvAsString = builder.Configuration.GetValue<string>("RUN_MIGRATION");
+        bool.TryParse(runMigrationEnvAsString, out var runMigration);
+        if (runMigration || app.Environment.IsDevelopment())
+        {
             app.ApplyMigrations();
         }
 
