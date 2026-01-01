@@ -10,7 +10,8 @@ using WeatherForecast.Shared.DTOs;
 namespace WeatherForecast.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+//TODO move api prefix to global setting
+[Route("api/[controller]")]
 public class WeatherForecastController(
     IMediator mediator,
     IHttpResponseService httpResponseService)
