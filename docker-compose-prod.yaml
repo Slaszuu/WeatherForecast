@@ -1,6 +1,9 @@
-﻿services:
+﻿name: bartek-weatherforecast-api
+
+services:
   weatherforecast:
     user: "1000:1000"
+    restart: always
     ports:
       - 1390:5125
     build:
@@ -20,6 +23,7 @@
 
   database:
     image: "postgres:18"
+    restart: always
     ports:
       - 4737:5432
     environment:
