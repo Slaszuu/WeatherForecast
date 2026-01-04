@@ -4,7 +4,7 @@ namespace WeatherForecast.Infrastructure.SignalR;
 
 public class WeatherHub : Hub
 {
-    public const string HubUrl = "/hubs/weather";
+    public const string HubUrl = "/api/hubs/weather";
 
     public async Task JoinStation(Guid stationId)
     {
