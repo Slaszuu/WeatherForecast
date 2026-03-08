@@ -7,7 +7,7 @@ public class MeasurementsCalibrationService : IMeasurementsCalibrationService
 {
     public Weather Calibrate(Sensors sensors)
     {
-        var temperature = CalculateRealTemperature(sensors);
+        var temperature = sensors.Temperature;
         var humidity = CalculateRealHumidity(sensors, temperature);
 
         return Weather.Create(
@@ -19,6 +19,7 @@ public class MeasurementsCalibrationService : IMeasurementsCalibrationService
             lux: sensors.Lux);
     }
 
+    //ToDo hardware changes needed to ensure CPU is not heating temp sensors.
     private static double CalculateRealTemperature(Sensors sensors)
     {
         const double k = -0.5;
