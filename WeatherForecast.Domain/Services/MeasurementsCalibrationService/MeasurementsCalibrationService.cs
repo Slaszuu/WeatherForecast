@@ -7,7 +7,7 @@ public class MeasurementsCalibrationService : IMeasurementsCalibrationService
 {
     public Weather Calibrate(Sensors sensors)
     {
-        var temperature = sensors.Temperature;
+        var temperature = sensors.Temperature - Consts.TemperatureCalibrationOffset;
         var humidity = CalculateRealHumidity(sensors, temperature);
 
         return Weather.Create(
