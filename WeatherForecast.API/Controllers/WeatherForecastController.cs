@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WeatherForecast.API.RequestModels;
 using WeatherForecast.API.Services.HttpResponseService;
 using WeatherForecast.Application.CQRS.Commands.AddSensorsRead;
-using WeatherForecast.Application.CQRS.GetCurrentWeather;
+using WeatherForecast.Application.CQRS.Queries.GetCurrentWeather;
 using WeatherForecast.Application.CQRS.Queries.GetLastSensorsRead;
 using WeatherForecast.Shared.DTOs;
 

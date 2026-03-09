@@ -2,6 +2,6 @@
 using WeatherForecast.Shared.DTOs;
 using WeatherForecast.Shared.OperationResult;
 
-namespace WeatherForecast.Application.CQRS.GetCurrentWeather;
+namespace WeatherForecast.Application.CQRS.Queries.GetCurrentWeather;
 
 public record GetCurrentWeatherQuery : IRequest<OperationResult<WeatherDTO>>;

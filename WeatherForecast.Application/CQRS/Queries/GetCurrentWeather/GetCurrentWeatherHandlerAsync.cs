@@ -6,7 +6,7 @@ using WeatherForecast.Infrastructure.Persistence;
 using WeatherForecast.Shared.DTOs;
 using WeatherForecast.Shared.OperationResult;
 
-namespace WeatherForecast.Application.CQRS.GetCurrentWeather;
+namespace WeatherForecast.Application.CQRS.Queries.GetCurrentWeather;
 
 public class GetCurrentWeatherHandlerAsync(AppDbContext dbContext, IMapper<Weather, WeatherDTO> mapper)
     : IRequestHandler<GetCurrentWeatherQuery, OperationResult<WeatherDTO>>
